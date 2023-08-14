@@ -4,6 +4,9 @@ import viteLogo from "/vite.svg";
 import desktopBackground from "/assets/images/bg-desktop-dark.jpg";
 
 import { v4 as uuidv4 } from "uuid";
+import { GlobalStyle } from "./GlobalStyle";
+import { ThemeProvider } from "styled-components";
+import { StyledTodoList } from "./components/styled/TodoList";
 
 const MOCK_DATA = [
   {
@@ -75,24 +78,26 @@ const TodoList = ({
 
   return (
     <>
-      {filteredTodos.length ? (
-        <ul>
-          {filteredTodos.map((todo) => (
-            <li key={todo.id}>
-              <Todo
-                allTodos={allTodos}
-                setAllTodos={setAllTodos}
-                todoData={todo}
-                filteredTodos={filteredTodos}
-                setFilterdTodos={setFilterdTodos}
-                getTodoById={getTodoById}
-              />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <h1>No Item</h1>
-      )}
+      <StyledTodoList>
+        {filteredTodos.length ? (
+          <ul>
+            {filteredTodos.map((todo) => (
+              <li key={todo.id}>
+                <Todo
+                  allTodos={allTodos}
+                  setAllTodos={setAllTodos}
+                  todoData={todo}
+                  filteredTodos={filteredTodos}
+                  setFilterdTodos={setFilterdTodos}
+                  getTodoById={getTodoById}
+                />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <h1>No Item</h1>
+        )}
+      </StyledTodoList>
 
       <TodoFilter
         filteredTodos={filteredTodos}
@@ -245,16 +250,21 @@ function App() {
 
   return (
     <>
-      <TodoInput allTodos={allTodos} setAllTodos={setAllTodos} />
-      <TodoList
-        allTodos={allTodos}
-        setAllTodos={setAllTodos}
-        filteredTodos={filteredTodos}
-        setFilterdTodos={setFilterdTodos}
-        handleFilter={handleFilter}
-        // Only for Filter
-        allTodos={allTodos}
-      />
+      <div className="container">
+        <GlobalStyle />
+        <header>
+          <TodoInput allTodos={allTodos} setAllTodos={setAllTodos} />
+          <TodoList
+            allTodos={allTodos}
+            setAllTodos={setAllTodos}
+            filteredTodos={filteredTodos}
+            setFilterdTodos={setFilterdTodos}
+            handleFilter={handleFilter}
+            // Only for Filter
+          />
+        </header>
+        <main></main>
+      </div>
     </>
   );
 }
