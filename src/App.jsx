@@ -3,10 +3,14 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import desktopBackground from "/assets/images/bg-desktop-dark.jpg";
 
+import darkThemeSwitch from "/assets/images/icon-moon.svg";
+
 import { v4 as uuidv4 } from "uuid";
 import { GlobalStyle } from "./GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import { StyledTodoList } from "./components/styled/TodoList";
+import { Container } from "./components/styled/Container";
+import { StyledHeader } from "./components/styled/Header";
 
 const MOCK_DATA = [
   {
@@ -250,21 +254,35 @@ function App() {
 
   return (
     <>
-      <div className="container">
+      <ThemeProvider theme={{}}>
         <GlobalStyle />
-        <header>
-          <TodoInput allTodos={allTodos} setAllTodos={setAllTodos} />
-          <TodoList
-            allTodos={allTodos}
-            setAllTodos={setAllTodos}
-            filteredTodos={filteredTodos}
-            setFilterdTodos={setFilterdTodos}
-            handleFilter={handleFilter}
-            // Only for Filter
-          />
-        </header>
-        <main></main>
-      </div>
+        <Container>
+          <StyledHeader>
+            <div className="content-wrapper">
+              <div className="title-wrapper">
+                <h1>TODO</h1>
+                <button>
+                  {/* TODO switch img depending on theme */}
+                  <img src={darkThemeSwitch} alt="Switch theme" />
+                </button>
+              </div>
+              <TodoInput
+                allTodos={allTodos}
+                setAllTodos={setAllTodos}
+              />
+              <TodoList
+                allTodos={allTodos}
+                setAllTodos={setAllTodos}
+                filteredTodos={filteredTodos}
+                setFilterdTodos={setFilterdTodos}
+                handleFilter={handleFilter}
+                // Only for Filter
+              />
+            </div>
+          </StyledHeader>
+          <div></div>
+        </Container>
+      </ThemeProvider>
     </>
   );
 }

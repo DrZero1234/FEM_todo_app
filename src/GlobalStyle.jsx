@@ -5,6 +5,13 @@ export const GlobalStyle = createGlobalStyle`
     :root {
         --fw-normal: 400;
         --fw-bold: 700;
+
+        --primary-600: hsl(220, 98%, 61%);
+        --checkg-bg: linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%);
+
+        --mobile-size: 21em;
+        --desktop-size: 80em;
+
     }
 
     *,
@@ -66,14 +73,41 @@ export const GlobalStyle = createGlobalStyle`
     }
 }
 
+    html {
+        font-size: 1.125rem;
+    }
+
     body {
         font-family: 'Josefin Sans', sans-serif;
-        font-size: 1.125rem;
     }
 
     .container {
         display: grid;
         grid-template-rows: 1fr 5fr;
+    }
+
+    .content-wrapper {
+        min-width: 20em;
+        max-width: 30em;
+    }
+    .content-wrapper input,
+    .content-wrapper li {
+        width: 100%;
+        padding: 1em;
+    }
+
+    .title-wrapper {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2em;
+    }
+
+    .title-wrapper>button {
+        background: inherit;
+        border: none;
+    }
+    .title-wrapper>button:hover {
+        cursor: pointer;
     }
 
 `;
