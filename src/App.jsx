@@ -11,6 +11,8 @@ import { ThemeProvider } from "styled-components";
 import { StyledTodoList } from "./components/styled/TodoList";
 import { Container } from "./components/styled/Container";
 import { StyledHeader } from "./components/styled/Header";
+import { TitleWrapper } from "./components/styled/TitleWrapper";
+import { ContentWrapper } from "./components/styled/ContentWrapper";
 
 const MOCK_DATA = [
   {
@@ -81,10 +83,10 @@ const TodoList = ({
   };
 
   return (
-    <>
-      <StyledTodoList>
+    <div className="main-wrapper">
+      <div className="main-content-wrapper">
         {filteredTodos.length ? (
-          <ul>
+          <StyledTodoList>
             {filteredTodos.map((todo) => (
               <li key={todo.id}>
                 <Todo
@@ -97,18 +99,20 @@ const TodoList = ({
                 />
               </li>
             ))}
-          </ul>
+          </StyledTodoList>
         ) : (
           <h1>No Item</h1>
         )}
-      </StyledTodoList>
 
-      <TodoFilter
-        filteredTodos={filteredTodos}
-        setFilterdTodos={setFilterdTodos}
-        handleFilter={handleFilter}
-      />
-    </>
+        <div className="filter-wrapper">
+          <TodoFilter
+            filteredTodos={filteredTodos}
+            setFilterdTodos={setFilterdTodos}
+            handleFilter={handleFilter}
+          />
+        </div>
+      </div>
+    </div>
   );
 
   /*
@@ -151,9 +155,7 @@ const Todo = ({ todoData, allTodos, setAllTodos, getTodoById }) => {
   const todoIndex = allTodos.indexOf(getTodoById(todoData.id));
 
   const handleDelete = () => {
-    const new_array = allTodos.filter(
-      (todo) => todo.id != todoData.id
-    );
+    const new_array = allTodos.filter((todo) => todo.id != todoData.id);
     setAllTodos(new_array);
   };
 
@@ -209,25 +211,15 @@ const Todo = ({ todoData, allTodos, setAllTodos, getTodoById }) => {
   );
 };
 
-const TodoFilter = ({
-  filteredTodos,
-  setFilterdTodos,
-  handleFilter,
-}) => {
+const TodoFilter = ({ filteredTodos, setFilterdTodos, handleFilter }) => {
   return (
-    <>
-      <ul>
-        <span>{filteredTodos.length} item left</span>
-        <button onClick={() => handleFilter("all")}>All</button>
-        <button onClick={() => handleFilter("active")}>Active</button>
-        <button onClick={() => handleFilter("completed")}>
-          Completed
-        </button>
-        <button onClick={() => handleFilter("clear")}>
-          Clear Completed
-        </button>
-      </ul>
-    </>
+    <ul>
+      <span>{filteredTodos.length} item left</span>
+      <button onClick={() => handleFilter("all")}>All</button>
+      <button onClick={() => handleFilter("active")}>Active</button>
+      <button onClick={() => handleFilter("completed")}>Completed</button>
+      <button onClick={() => handleFilter("clear")}>Clear Completed</button>
+    </ul>
   );
 };
 
@@ -259,25 +251,24 @@ function App() {
         <Container>
           <StyledHeader>
             <div className="content-wrapper">
-              <div className="title-wrapper">
-                <h1>TODO</h1>
+              <TitleWrapper>
+                <h1>todo</h1>
                 <button>
                   {/* TODO switch img depending on theme */}
                   <img src={darkThemeSwitch} alt="Switch theme" />
                 </button>
-              </div>
-              <TodoInput
-                allTodos={allTodos}
-                setAllTodos={setAllTodos}
-              />
-              <TodoList
-                allTodos={allTodos}
-                setAllTodos={setAllTodos}
-                filteredTodos={filteredTodos}
-                setFilterdTodos={setFilterdTodos}
-                handleFilter={handleFilter}
-                // Only for Filter
-              />
+              </TitleWrapper>
+              <ContentWrapper>
+                <TodoInput allTodos={allTodos} setAllTodos={setAllTodos} />
+                <TodoList
+                  allTodos={allTodos}
+                  setAllTodos={setAllTodos}
+                  filteredTodos={filteredTodos}
+                  setFilterdTodos={setFilterdTodos}
+                  handleFilter={handleFilter}
+                  // Only for Filter
+                />
+              </ContentWrapper>
             </div>
           </StyledHeader>
           <div></div>

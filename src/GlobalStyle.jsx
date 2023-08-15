@@ -79,6 +79,10 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         font-family: 'Josefin Sans', sans-serif;
+        display: grid;
+        min-height: 100vh;
+        // Change on theme
+        background-color: hsl(0, 0%, 98%);
     }
 
     .container {
@@ -96,18 +100,11 @@ export const GlobalStyle = createGlobalStyle`
         padding: 1em;
     }
 
-    .title-wrapper {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 2em;
+    .main-wrapper {
+        position:relative;
     }
-
-    .title-wrapper>button {
-        background: inherit;
-        border: none;
-    }
-    .title-wrapper>button:hover {
-        cursor: pointer;
+    .main-content-wrapper {
+        position: absolute;
     }
 
 `;
