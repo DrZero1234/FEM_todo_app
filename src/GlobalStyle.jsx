@@ -7,7 +7,7 @@ export const GlobalStyle = createGlobalStyle`
         --fw-bold: 700;
 
         --primary-600: hsl(220, 98%, 61%);
-        --checkg-bg: linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%);
+        --checkbox-bg: hsl(192, 100%, 67%) to hsl(280, 87%, 65%);
 
         --mobile-size: 21em;
         --desktop-size: 80em;
@@ -90,21 +90,14 @@ export const GlobalStyle = createGlobalStyle`
         grid-template-rows: 1fr 5fr;
     }
 
-    .content-wrapper {
-        min-width: 20em;
-        max-width: 30em;
-    }
-    .content-wrapper input,
-    .content-wrapper li {
-        width: 100%;
-        padding: 1em;
-    }
-
     .main-wrapper {
         position:relative;
     }
     .main-content-wrapper {
         position: absolute;
+        min-width: 100%
+        box-shadow: -22px 42px 153px -67px rgba(193,210,232,0.75);
+-webkit-box-shadow: -22px 42px 153px -67px rgba(193,210,232,0.75);
+-moz-box-shadow: -22px 42px 153px -67px rgba(193,210,232,0.75);
     }
-
 `;
