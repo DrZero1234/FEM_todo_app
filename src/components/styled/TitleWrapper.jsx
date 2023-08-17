@@ -6,8 +6,8 @@ export const TitleWrapper = styled.div`
   margin-bottom: 2em;
 
   h1 {
-    font-size: 2rem;
     color: white;
+    font-size: 2rem;
     font-weight: var(--fw-bold);
     letter-spacing: 0.5rem;
     text-transform: uppercase;

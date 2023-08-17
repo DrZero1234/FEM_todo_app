@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import desktopBackground from "/assets/images/bg-desktop-dark.jpg";
 
 import darkThemeSwitch from "/assets/images/icon-moon.svg";
+import lightThemeSwitch from "/assets/images/icon-sun.svg";
 
 import { v4 as uuidv4 } from "uuid";
 import { GlobalStyle } from "./GlobalStyle";
@@ -12,8 +10,10 @@ import { StyledHeader } from "./components/styled/Header";
 import { TitleWrapper } from "./components/styled/TitleWrapper";
 import { MainWrapper } from "./components/styled/MainWrapper";
 import { ContentWrapper } from "./components/styled/ContentWrapper";
-import { StyledTodoFilter } from "./components/styled/TodoFilter";
-import { StyledTodoList } from "./components/styled/TodoList";
+
+import { TodoList } from "./components/TodoList";
+import { TodoInput } from "./components/TodoInput";
+import { Container } from "./components/styled/Container";
 
 const MOCK_DATA = [
   {
@@ -35,86 +35,7 @@ const Header = (/*{currentTheme}*/) => {
   return;
 };
 
-const TodoInput = ({ allTodos, setAllTodos }) => {
-  const [newTodoText, setNewTodoText] = useState("");
-
-  const handleChange = (e) => {
-    setNewTodoText(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (newTodoText) {
-      const todosCopy = allTodos.slice();
-      const new_todo = {
-        id: uuidv4(),
-        complete: false,
-        content: newTodoText,
-      };
-
-      todosCopy.push(new_todo);
-      setAllTodos(todosCopy);
-      setNewTodoText("");
-    }
-    return;
-  };
-
-  return (
-    <form onSubmit={(e) => handleSubmit(e)}>
-      <input
-        required
-        type="text"
-        onChange={handleChange}
-        value={newTodoText}
-      ></input>
-    </form>
-  );
-};
-
-const TodoList = ({
-  allTodos,
-  setAllTodos,
-  filteredTodos,
-  setFilterdTodos,
-  handleFilter,
-}) => {
-  const getTodoById = (id) => {
-    return filteredTodos.find((todo) => todo.id === id);
-  };
-
-  return (
-    <div className="main-wrapper">
-      <div className="main-content-wrapper">
-        {filteredTodos.length ? (
-          <StyledTodoList>
-            {filteredTodos.map((todo) => (
-              <li key={todo.id}>
-                <Todo
-                  allTodos={allTodos}
-                  setAllTodos={setAllTodos}
-                  todoData={todo}
-                  filteredTodos={filteredTodos}
-                  setFilterdTodos={setFilterdTodos}
-                  getTodoById={getTodoById}
-                />
-              </li>
-            ))}
-          </StyledTodoList>
-        ) : (
-          <h1>No Item</h1>
-        )}
-
-        <TodoFilter
-          filteredTodos={filteredTodos}
-          setFilterdTodos={setFilterdTodos}
-          handleFilter={handleFilter}
-        />
-      </div>
-    </div>
-  );
-
-  /*
+/*
   return (
     <>
       {filteredTodos.length ? (
@@ -144,103 +65,36 @@ const TodoList = ({
     </>
   );
   */
-};
-
-const Todo = ({ todoData, allTodos, setAllTodos, getTodoById }) => {
-  const [isEdit, setIsEdit] = useState(false);
-  const [editText, setEditText] = useState(todoData.content);
-
-  const todoById = getTodoById(todoData.id);
-  const todoIndex = allTodos.indexOf(getTodoById(todoData.id));
-
-  const handleDelete = () => {
-    const new_array = allTodos.filter(
-      (todo) => todo.id != todoData.id
-    );
-    setAllTodos(new_array);
-  };
-
-  const handleChange = (e) => {
-    const allTodosCopy = allTodos.slice();
-    if (e.target.checked) {
-      todoById.complete = true;
-    } else {
-      todoById.complete = false;
-    }
-
-    allTodosCopy[todoIndex] = todoById;
-    setAllTodos(allTodosCopy);
-    console.log(allTodos);
-  };
-
-  const handleEdit = (e) => {
-    e.preventDefault();
-    const allTodosCopy = allTodos.slice();
-    const copy_todo = allTodos[todoIndex];
-    copy_todo.content = editText;
-    allTodosCopy[todoIndex] = copy_todo;
-    setAllTodos(allTodosCopy);
-
-    setIsEdit(!isEdit);
-  };
-
-  return (
-    <>
-      <div className="todo-item-left">
-        <label>
-          <input
-            type="checkbox"
-            id={todoData.id}
-            defaultValue={todoData.content}
-            onChange={(e) => handleChange(e)}
-            checked={todoData.complete}
-          />
-          {todoData.content}
-        </label>
-        {isEdit && (
-          <form onSubmit={(e) => handleEdit(e)}>
-            <input
-              required
-              type="text"
-              value={editText}
-              onChange={(e) => setEditText(e.target.value)}
-            ></input>
-          </form>
-        )}
-      </div>
-      <div className="todo-item-right">
-        <button onClick={() => setIsEdit(!isEdit)}>Edit</button>
-        <button onClick={() => handleDelete()}>X</button>
-      </div>
-    </>
-  );
-};
-
-const TodoFilter = ({
-  filteredTodos,
-  setFilterdTodos,
-  handleFilter,
-}) => {
-  return (
-    <StyledTodoFilter>
-      <span>{filteredTodos.length} item left</span>
-      <div>
-        <button onClick={() => handleFilter("all")}>All</button>
-        <button onClick={() => handleFilter("active")}>Active</button>
-        <button onClick={() => handleFilter("completed")}>
-          Completed
-        </button>
-      </div>
-      <button onClick={() => handleFilter("clear")}>
-        Clear Completed
-      </button>
-    </StyledTodoFilter>
-  );
-};
 
 function App() {
   const [allTodos, setAllTodos] = useState(MOCK_DATA);
   const [filteredTodos, setFilterdTodos] = useState(allTodos);
+
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") || "light"
+  );
+
+  const switchTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+
+  const lightTheme = {
+    backgroundColor: "hsl(0, 0%, 98%)",
+    listItemBackgroundColor: "white",
+    itemFontColor: "rgba(79,77,98,255)",
+    borderColor: "rgba(79, 77, 98, 255)",
+    filterStatusColor: "rgba(184,183,190,255)",
+    filterButtonColor: "rgba(147,147,158,255)",
+  };
+
+  const darkTheme = {
+    backgroundColor: "hsl(235, 21%, 11%)",
+    listItemBackgroundColor: "rgba(37,39,60,255)",
+    itemFontColor: "rgba(127,129,151,255)",
+    borderColor: "rgba(50,52,73,255)",
+    filterStatusColor: "rgba(67,69,94,255)",
+    filterButtonColor: "rgba(93,94,123,255)",
+  };
 
   const handleFilter = (action) => {
     if (action === "all") {
@@ -259,17 +113,31 @@ function App() {
     setFilterdTodos(allTodos);
   }, [allTodos]);
 
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   return (
-    <>
-      <ThemeProvider theme={{}}>
-        <GlobalStyle />
+    <ThemeProvider
+      theme={
+        localStorage.getItem("theme") === "dark"
+          ? { darkTheme }
+          : { lightTheme }
+      }
+    >
+      <GlobalStyle />
+      <Container>
         <StyledHeader>
           <ContentWrapper>
             <TitleWrapper>
               <h1>todo</h1>
-              <button>
+              <button onClick={() => switchTheme()}>
                 {/* TODO switch img depending on theme */}
-                <img src={darkThemeSwitch} alt="Switch theme" />
+                {localStorage.getItem("theme") === "dark" ? (
+                  <img src={lightThemeSwitch} alt="Theme switch" />
+                ) : (
+                  <img src={darkThemeSwitch} alt="Theme switch" />
+                )}
               </button>
             </TitleWrapper>
             <MainWrapper>
@@ -288,9 +156,8 @@ function App() {
             </MainWrapper>
           </ContentWrapper>
         </StyledHeader>
-        <div></div>
-      </ThemeProvider>
-    </>
+      </Container>
+    </ThemeProvider>
   );
 }
 

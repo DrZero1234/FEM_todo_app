@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
         --primary-600: hsl(220, 98%, 61%);
         --checkbox-bg: hsl(192, 100%, 67%) to hsl(280, 87%, 65%);
 
-        --mobile-size: 21em;
+        --mobile-size: 38em;
         --desktop-size: 80em;
 
     }
@@ -95,9 +95,6 @@ export const GlobalStyle = createGlobalStyle`
     }
     .main-content-wrapper {
         position: absolute;
-        min-width: 100%
-        box-shadow: -22px 42px 153px -67px rgba(193,210,232,0.75);
--webkit-box-shadow: -22px 42px 153px -67px rgba(193,210,232,0.75);
--moz-box-shadow: -22px 42px 153px -67px rgba(193,210,232,0.75);
+        min-width: 100%;
     }
 `;

@@ -4,42 +4,26 @@ export const StyledTodoList = styled.ul`
   display: flex;
   flex-direction: column;
   border-radius: 4px;
-  border: none;
-
-  input[type="checkbox"]  {
-    /* Add if not using autoprefixer */
-    -webkit-appearance: none;
-    appearance: none;
-    /* For iOS < 15 to remove gradient background */
-    background-color: #fff;
-    /* Not removed via appearance */
-    margin: 0;
-    font: inherit;
-    color: red;
-    width: 0.25em;
-    height: 0.25em;
-    border: 0.1em solid black;
-    border-radius: 1em;
-    transform: translateY(-0.075em);
-  }
-  input[type="checkbox"]:checked {
-    background: red;
-  }
+  color: ${({ theme }) => theme.itemFontColor};
+  box-shadow: -22px 42px 153px -67px rgba(193, 210, 232, 0.75);
+  -webkit-box-shadow: -22px 42px 153px -67px rgba(193, 210, 232, 0.75);
+  -moz-box-shadow: -22px 42px 153px -67px rgba(193, 210, 232, 0.75);
 
   li label:hover {
     cursor: pointer;
   }
   li {
+    background-color: ${({ theme }) => theme.listItemBackgroundColor};
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    border-color: ${({ theme }) => theme.borderColor};
     border-bottom: 1px solid black;
   }
 
   // Border bottom for that
 
-  .todo-item-left > label,
   .todo-item-right {
     display: flex;
     align-items: center;
@@ -53,6 +37,10 @@ export const StyledTodoList = styled.ul`
   li:hover {
     .todo-item-right {
       visibility: visible;
+    }
+
+    input[type="text"] {
+      border 2px solid ${({ theme }) => theme.borderColor}
     }
   }
 `;

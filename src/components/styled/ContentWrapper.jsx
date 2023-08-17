@@ -1,7 +1,8 @@
 import { styled } from "styled-components";
+import { devices } from "../../utils/devices";
 
 export const ContentWrapper = styled.div`
-  min-width: 30em;
+  min-width: 40em;
   margin: 3.5em;
 
   li,
@@ -11,7 +12,11 @@ export const ContentWrapper = styled.div`
     background-color: white;
   }
 
-  @media (max-width: 375px) {
+  @media (${devices.desktop}) {
+    min-width: 30em;
+  }
+
+  @media (${devices.mobile}) {
     min-width: 20em;
   }
 `;

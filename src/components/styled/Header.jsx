@@ -9,4 +9,8 @@ export const StyledHeader = styled.header`
   background-size: cover;
   background-repeat: no-repeat;
   place-content: center;
+
+  input[type="text"] {
+    border: none;
+  }
 `;

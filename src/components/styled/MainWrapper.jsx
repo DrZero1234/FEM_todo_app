@@ -5,13 +5,10 @@ export const MainWrapper = styled.main`
   flex-direction: column;
   gap: 1em;
 
-  #todo-list {
-    display: flex;
-    flex-direction: column;
-  }
   form input[type="text"] {
-    border: none;
     border-radius: 4px;
+    background: ${({ theme }) => theme.listItemBackgroundColor};
+    color: ${({ theme }) => theme.itemFontColor};
   }
 
   .
