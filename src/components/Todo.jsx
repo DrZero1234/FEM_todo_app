@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { StyledCheckbox } from "./styled/Checkbox";
 
+import CloseIcon from "/assets/images/icon-cross.svg";
+
 export const Todo = ({
   todoData,
   allTodos,
@@ -70,7 +72,9 @@ export const Todo = ({
       </StyledCheckbox>
       <div className="todo-item-right">
         <button onClick={() => setIsEdit(!isEdit)}>Edit</button>
-        <button onClick={() => handleDelete()}>X</button>
+        <button onClick={() => handleDelete()}>
+          <img src={CloseIcon} alt="Delete item" />
+        </button>
       </div>
     </>
   );

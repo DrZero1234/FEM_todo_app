@@ -34,13 +34,22 @@ export const StyledTodoList = styled.ul`
     visibility: hidden;
   }
 
+  li button {
+    background: inherit;
+    border: none;
+    transition-property: transform;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in;
+  }
+
+  li button:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+  }
+
   li:hover {
     .todo-item-right {
       visibility: visible;
-    }
-
-    input[type="text"] {
-      border 2px solid ${({ theme }) => theme.borderColor}
     }
   }
 `;

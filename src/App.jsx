@@ -14,6 +14,7 @@ import { ContentWrapper } from "./components/styled/ContentWrapper";
 import { TodoList } from "./components/TodoList";
 import { TodoInput } from "./components/TodoInput";
 import { Container } from "./components/styled/Container";
+import { ThemeButton } from "./components/ThemeButton";
 
 const MOCK_DATA = [
   {
@@ -70,9 +71,8 @@ function App() {
   const [allTodos, setAllTodos] = useState(MOCK_DATA);
   const [filteredTodos, setFilterdTodos] = useState(allTodos);
 
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") || "light"
-  );
+  const [theme, setTheme] = useState("light");
+  const isDarkTheme = theme === "dark";
 
   const switchTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -91,7 +91,7 @@ function App() {
     backgroundColor: "hsl(235, 21%, 11%)",
     listItemBackgroundColor: "rgba(37,39,60,255)",
     itemFontColor: "rgba(127,129,151,255)",
-    borderColor: "rgba(50,52,73,255)",
+    borderColor: "rgba(55,57,78,255)",
     filterStatusColor: "rgba(67,69,94,255)",
     filterButtonColor: "rgba(93,94,123,255)",
   };
@@ -113,32 +113,18 @@ function App() {
     setFilterdTodos(allTodos);
   }, [allTodos]);
 
-  useEffect(() => {
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
   return (
-    <ThemeProvider
-      theme={
-        localStorage.getItem("theme") === "dark"
-          ? { darkTheme }
-          : { lightTheme }
-      }
-    >
+    <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
       <GlobalStyle />
       <Container>
         <StyledHeader>
           <ContentWrapper>
             <TitleWrapper>
               <h1>todo</h1>
-              <button onClick={() => switchTheme()}>
-                {/* TODO switch img depending on theme */}
-                {localStorage.getItem("theme") === "dark" ? (
-                  <img src={lightThemeSwitch} alt="Theme switch" />
-                ) : (
-                  <img src={darkThemeSwitch} alt="Theme switch" />
-                )}
-              </button>
+              <ThemeButton
+                switchTheme={switchTheme}
+                isDarkTheme={isDarkTheme}
+              />
             </TitleWrapper>
             <MainWrapper>
               <TodoInput
