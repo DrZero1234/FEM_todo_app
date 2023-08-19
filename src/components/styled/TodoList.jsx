@@ -27,7 +27,7 @@ export const StyledTodoList = styled.ul`
   .todo-item-right {
     display: flex;
     align-items: center;
-    gap: 0.5em;
+    gap: 1em;
   }
 
   .todo-item-right {
