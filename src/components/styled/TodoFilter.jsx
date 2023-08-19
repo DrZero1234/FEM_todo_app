@@ -14,6 +14,12 @@ export const StyledTodoFilter = styled.ul`
     color: inherit;
   }
 
+  // Clear complete button
+  button:hover {
+    color: var(--primary-600);
+    cursor: pointer;
+  }
+
   .filter-buttons {
     display: inline-flex;
     gap: 0.5em;
@@ -33,15 +39,32 @@ export const StyledTodoFilter = styled.ul`
 
   @media (${devices.mobile}) {
     display: grid;
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    gap: 1em;
+    row-gap: 1em;
+    justify-content: center;
+    align-items: center;
+    background: inherit;
 
-    &li:nth-child(3) {
-      grid-row-start: 1;
+    .filter-buttons {
+      grid-column: 1 / -1;
+      background: ${({ theme }) => theme.listItemBackgroundColor};
     }
 
-    .filter-buttons:nth-child(2) {
-      grid-row-start: 2;
+    button:nth-child(3) {
+      gird-column-start: 2;
+    }
+
+    button:nth-child(3),
+    span:nth-child(1) {
+      display: grid;
+      align-items: center;
+      justify-content: center;
+      grid-row-start: 1;
+      background: ${({ theme }) => theme.listItemBackgroundColor};
+      width: 100%;
+      height: 100%;
+      text-align: center;
     }
   }
 `;
