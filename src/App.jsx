@@ -71,6 +71,8 @@ function App() {
   const [allTodos, setAllTodos] = useState(MOCK_DATA);
   const [filteredTodos, setFilterdTodos] = useState(allTodos);
 
+  const [activeFilter, setActiveFilter] = useState(null);
+
   const [theme, setTheme] = useState("light");
   const isDarkTheme = theme === "dark";
 
@@ -99,10 +101,13 @@ function App() {
   const handleFilter = (action) => {
     if (action === "all") {
       setFilterdTodos(allTodos);
+      setActiveFilter(1);
     } else if (action === "active") {
       setFilterdTodos(allTodos.filter((todo) => !todo.complete));
+      setActiveFilter(2);
     } else if (action === "completed") {
       setFilterdTodos(allTodos.filter((todo) => todo.complete));
+      setActiveFilter(3);
     } else if (action === "clear") {
       let allTodosCopy = allTodos.filter((todo) => !todo.complete);
       setAllTodos(allTodosCopy);
@@ -137,6 +142,7 @@ function App() {
                 filteredTodos={filteredTodos}
                 setFilterdTodos={setFilterdTodos}
                 handleFilter={handleFilter}
+                activeFilter={activeFilter}
                 // Only for Filter
               />
             </MainWrapper>

@@ -19,4 +19,8 @@ export const MainWrapper = styled.main`
     justify-content: space-between;
     border-bottom: 1px solid black;
   }
+
+  .filter-buttons: {
+    background: red;
+  }
 `;

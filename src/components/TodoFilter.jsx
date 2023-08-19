@@ -4,17 +4,26 @@ export const TodoFilter = ({
   filteredTodos,
   setFilterdTodos,
   handleFilter,
+  activeFilter,
 }) => {
   return (
-    <StyledTodoFilter>
+    <StyledTodoFilter activeFilter={activeFilter}>
       <span>{filteredTodos.length} item left</span>
-      <div>
-        <button onClick={() => handleFilter("all")}>All</button>
-        <button onClick={() => handleFilter("active")}>Active</button>
-        <button onClick={() => handleFilter("completed")}>
-          Completed
-        </button>
-      </div>
+      <ul className="filter-buttons">
+        <li>
+          <button onClick={() => handleFilter("all")}>All</button>
+        </li>
+        <li>
+          <button onClick={() => handleFilter("active")}>
+            Active
+          </button>
+        </li>
+        <li>
+          <button onClick={() => handleFilter("completed")}>
+            Completed
+          </button>
+        </li>
+      </ul>
       <button onClick={() => handleFilter("clear")}>
         Clear Completed
       </button>

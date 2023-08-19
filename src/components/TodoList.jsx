@@ -9,6 +9,7 @@ export const TodoList = ({
   filteredTodos,
   setFilterdTodos,
   handleFilter,
+  activeFilter,
 }) => {
   const getTodoById = (id) => {
     return filteredTodos.find((todo) => todo.id === id);
@@ -40,6 +41,7 @@ export const TodoList = ({
           filteredTodos={filteredTodos}
           setFilterdTodos={setFilterdTodos}
           handleFilter={handleFilter}
+          activeFilter={activeFilter}
         />
       </div>
     </div>
