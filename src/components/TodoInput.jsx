@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { StyledCheckbox } from "./styled/Checkbox";
 
 export const TodoInput = ({ allTodos, setAllTodos }) => {
   const [newTodoText, setNewTodoText] = useState("");

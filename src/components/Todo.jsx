@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { StyledCheckbox } from "./styled/Checkbox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
@@ -8,6 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import CloseIcon from "/assets/images/icon-cross.svg";
+import { CheckBox } from "./Checkbox";
 
 export const Todo = ({
   todoData,
@@ -38,6 +38,7 @@ export const Todo = ({
 
     allTodosCopy[todoIndex] = todoById;
     setAllTodos(allTodosCopy);
+    console.log(allTodos);
   };
 
   const handleEdit = (e) => {
@@ -53,28 +54,14 @@ export const Todo = ({
 
   return (
     <>
-      <StyledCheckbox>
-        <input
-          type="checkbox"
-          id={todoData.id}
-          defaultValue={todoData.content}
-          onChange={(e) => handleChange(e)}
-          checked={todoData.complete}
-        />
-
-        {isEdit ? (
-          <form onSubmit={(e) => handleEdit(e)}>
-            <input
-              required
-              type="text"
-              value={editText}
-              onChange={(e) => setEditText(e.target.value)}
-            ></input>
-          </form>
-        ) : (
-          <>{todoData.content}</>
-        )}
-      </StyledCheckbox>
+      <CheckBox
+        todoData={todoData}
+        handleChange={handleChange}
+        handleEdit={handleEdit}
+        isEdit={isEdit}
+        editText={editText}
+        setEditText={setEditText}
+      />
       <div className="todo-item-right">
         <button onClick={() => setIsEdit(!isEdit)}>
           {isEdit ? (

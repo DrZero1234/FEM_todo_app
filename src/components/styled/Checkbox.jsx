@@ -1,45 +1,78 @@
-import { styled } from "styled-components";
+import React from "react";
+import { styled, keyframes } from "styled-components";
+import CheckMark from "/assets/images/icon-check.svg";
 
-export const StyledCheckbox = styled.label`
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 0.5em;
-  margin-top: 1em;
-  word-break: break-all;
-  input[type="checkbox"] {
-    /* Add if not using autoprefixer */
-    -webkit-appearance: none;
-    appearance: none;
-    /* For iOS < 15 to remove gradient background */
-    background-color: inherit;
-    /* Not removed via appearance */
-    margin: 0;
-    font: inherit;
-    color: blue;
-    width: 1.15em;
-    height: 1.15em;
-    border: 0.15em solid black;
-    border-radius: 100vw;
-    transform: translateY(-0.5em);
+export const Input = styled.input`
+  height: 0;
+  width: 0;
+  opacity: 0;
+  z-index: -1;
+`;
+
+const popIn = keyframes`
+from {
+  opacity: 0;
+  transform: translate(-50%, 50%) scale(1.5);
+}
+
+to {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+`;
+
+export const Label = styled.label`
+  position: relative;
+  display: inline-block;
+  margin: 0.6em 1em;
+`;
+
+export const Indicator = styled.div`
+  border: 1px solid;
+  border-radius: 1em;
+  width: 1.2em;
+  height: 1.2em;
+  position: absolute;
+  top: 0;
+  left: -1.5em;
+
+  ${Label}:hover & {
+    background: #ccc;
+    border-color: linear-gradient(
+      hsl(192, 100%, 67%),
+      hsl(280, 87%, 65%)
+    );
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  ${Input}:checked + &::after {
     display: grid;
     place-content: center;
+    content: url(${CheckMark});
+    border: 1px solid #263238;
+    border-radius: 1em;
+    background: linear-gradient(
+      hsl(192, 100%, 67%),
+      hsl(280, 87%, 65%)
+    );
+    width: 1.2em;
+    height: 1.2em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-name: ${popIn};
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
   }
 
-  input[type="text"] {
-    border: 2px solid ${({ theme }) => theme.borderColor};
-  }
-
-  input[type="checkbox"]::before {
-    content: "";
-    border-radius: inherit;
-    height: 1.15em;
-    width: 1.15em;
-    transform: scale(0);
-    transition: 120ms transform ease-in-out;
-    box-shadow: inset 1em 1em red;
-  }
-
-  input[type="checkbox"]:checked::before {
-    transform: scale(1);
+  ${Input}:disabled + & {
+    pointer-events: none;
+    opacity: 0.6;
+    background: #e6e6e6;
   }
 `;
